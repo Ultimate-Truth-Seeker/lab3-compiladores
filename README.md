@@ -1,3 +1,21 @@
+# Video Youtube
+
+[Enlace al video](https://youtu.be/3alt9YfJW6Y)
+
+# Escrito breve: Relación entre mi compilador y el funcionamiento de Vercel CLI
+
+El compilador desarrollado para este laboratorio reproduce, a pequeña escala, el flujo de trabajo que realizan herramientas como **Vercel CLI** o **Netlify CLI** cuando se ejecuta un comando como `vercel deploy`.
+
+El proceso comienza cuando ANTLR analiza el archivo `site.sl`, escrito en el lenguaje específico de dominio (DSL) **SiteLang**. Durante esta etapa, el lexer convierte el texto en tokens y el parser verifica que el programa cumpla con la gramática definida. Si el archivo es válido, se construye un árbol sintáctico que representa la estructura del sitio web.
+
+Posteriormente, el **SiteListener** recorre dicho árbol sintáctico. En este recorrido extrae la información declarada por el usuario, como el nombre del sitio, el título, la descripción, el tema visual y el contenido de las páginas. Con estos datos genera automáticamente un archivo `index.html`, actuando como la fase de generación de código del compilador.
+
+Una vez generado el sitio, el listener automatiza el proceso de publicación mediante llamadas a APIs REST. Primero crea un repositorio en GitHub, luego sube el archivo HTML generado y finalmente realiza una solicitud a la API de Vercel para desplegar el sitio y obtener una URL pública.
+
+Este comportamiento es equivalente al que realiza **Vercel CLI**. Cuando un desarrollador ejecuta `vercel deploy`, la herramienta analiza la configuración del proyecto, prepara los archivos necesarios para el despliegue, establece comunicación con los servicios de Vercel mediante sus APIs y publica la aplicación. La diferencia principal es que, en este laboratorio, todas esas etapas fueron implementadas explícitamente dentro del compilador utilizando ANTLR y un listener personalizado, lo que permite comprender el funcionamiento interno de estas herramientas de despliegue.
+
+Resumiendo todo al final, el **SiteListener** cumple un papel similar al motor de despliegue de Vercel CLI: interpreta la información obtenida del DSL, genera los archivos requeridos y orquesta las llamadas a los servicios externos para automatizar completamente la publicación de un sitio web.
+
 # 🧪 Laboratorio 3 — Opción D: GitHub + Vercel (✅ 100% Gratuita)
 
 ## 📋 Descripción General
